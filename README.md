@@ -1,4 +1,4 @@
 node-url-tools
 ==============
 
-Advanced url functionalities.
+A set of libraries to extract specific metrics, states and data about a URL.
