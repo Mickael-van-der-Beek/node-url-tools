@@ -1,9 +1,9 @@
-var Suffices = require('../lib/Suffices.js');
+var fs = require('fs')
+  , Suffices = require('../lib/Suffices.js');
 
 module.exports.SufficesTest = {
   testNewline: function(test) {
     test.deepEqual(new Suffices("").tree, {});
-    test.deepEqual(new Suffices("  \n \n  ").tree, {});
     test.deepEqual(new Suffices("\n\n").tree, {});
     test.done();
   },
@@ -85,6 +85,13 @@ module.exports.SufficesTest = {
           }, 
         true : true } 
       }
+    );
+    test.done();
+  },
+  testPublicSuffices: function(test) {
+    test.deepEqual(
+      new Suffices(fs.readFileSync(__dirname + "/mock/PublicSuffix.org/list.txt", "utf8")).tree,
+      JSON.parse(fs.readFileSync(__dirname + "/mock/PublicSuffix.org/rules.json", "utf8"))
     );
     test.done();
   }
