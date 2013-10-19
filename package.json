@@ -1,0 +1,31 @@
+{
+  "name": "url-toolbelt",
+  "version": "0.0.1",
+  "description": "A set of API's to extract specific metrics, states and data about a URL.",
+  "main": "index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "nodeunit": "~0.8.1"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/nodeunit test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://ndemoor@github.com/Woorank/node-url-tools.git"
+  },
+  "keywords": [
+    "url",
+    "parser",
+    "tld",
+    "suffix",
+    "domain",
+    "dns"
+  ],
+  "author": "Nils De Moor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Woorank/node-url-tools/issues"
+  }
+}
