@@ -7,12 +7,14 @@
   },
   "devDependencies": {
     "nodeunit": "~0.8.1",
+    "mocha": "*",
+    "chai": "*",
     "jshint": "~2.3.0"
   },
   "scripts": {
     "test": "npm run lint && npm run test-node",
-    "test-node": "./node_modules/.bin/nodeunit test",
-    "lint": "./node_modules/.bin/jshint lib/*"
+    "test-node": "./node_modules/.bin/mocha --reporter spec test/",
+    "lint": "./node_modules/.bin/jshint ."
   },
   "repository": {
     "type": "git",

@@ -18,12 +18,21 @@
   "trailing"  : true,
   "strict"    : true,
   "quotmark"  : true,
-  
+
   "sub"       : true,
   "undef"     : true,
   "funcscope" : true,
   "validthis" : true,
-  
+
   "white"     : true,
-  "nomen"     : true
+  "nomen"     : true,
+
+  "globals"   : {
+    "describe"  : true,
+    "it"        : true,
+    "before"    : true,
+    "after"     : true,
+    "beforeEach": true,
+    "afterEach" : true
+  }
 }
