@@ -42,7 +42,7 @@ describe('Tld', function () {
 
   describe('No rules', function () { // great scotch
     it('should flag everything after final dot as tld', function (done) {
-      new Tld({}).decompose('google.com').tld.should.equal('com');
+      new Tld({}).decompose('google.com').tld.should.eql(['com']);
       done();
     });
   });
@@ -56,14 +56,18 @@ describe('Tld', function () {
 
   describe('Urls matching the normal rule', function () {
     it('should result in tld', function (done) {
-      new Tld(simpleRule).decompose('foo.a').tld.should.equal('a');
+      new Tld(simpleRule).decompose('foo.a').tld.should.eql(['a']);
       new Tld(simpleRule).decompose('foo.a').domain.should.equal('foo');
 
-      new Tld(simpleRule).decompose('bar.foo.a').tld.should.equal('a');
+      new Tld(simpleRule).decompose('bar.foo.a').tld.should.eql(['a']);
       new Tld(simpleRule).decompose('bar.foo.a').domain.should.equal('foo');
+      new Tld(simpleRule).decompose('bar.foo.a').sub.should.eql(['bar']);
 
-      new Tld(simpleRule).decompose('baz.bar.foo.a').tld.should.equal('a');
+      new Tld(simpleRule).decompose('baz.bar.foo.a').tld.should.eql(['a']);
       new Tld(simpleRule).decompose('baz.bar.foo.a').domain.should.equal('foo');
+      new Tld(simpleRule).decompose('baz.bar.foo.a').sub
+        .should.eql(['baz', 'bar']);
+
 
       done();
     });
@@ -80,14 +84,16 @@ describe('Tld', function () {
   describe('Urls matching the  * rule', function () {
     it('should result in tld', function (done) {
       new Tld(simpleRule).decompose('bar.foo.c1.b.a').tld
-        .should.equal('foo.c1.b.a');
+        .should.eql(['foo', 'c1', 'b', 'a']);
       new Tld(simpleRule).decompose('bar.foo.c1.b.a').domain
         .should.equal('bar');
 
       new Tld(simpleRule).decompose('baz.bar.foo.c1.b.a').tld
-        .should.equal('foo.c1.b.a');
+        .should.eql(['foo', 'c1', 'b', 'a']);
       new Tld(simpleRule).decompose('baz.bar.foo.c1.b.a').domain
         .should.equal('bar');
+      new Tld(simpleRule).decompose('baz.bar.foo.c1.b.a').sub
+        .should.eql(['baz']);
 
       done();
     });
@@ -95,11 +101,17 @@ describe('Tld', function () {
 
   describe('Urls matching root of * rule + match exception rule', function () {
     it('should result in tld', function (done) {
-      new Tld(simpleRule).decompose('d.c1.b.a').tld.should.equal('c1.b.a');
-      new Tld(simpleRule).decompose('d.c1.b.a').domain.should.equal('d');
+      new Tld(simpleRule).decompose('d.c1.b.a').tld
+        .should.eql(['c1', 'b', 'a']);
+      new Tld(simpleRule).decompose('d.c1.b.a').domain
+        .should.equal('d');
 
-      new Tld(simpleRule).decompose('foo.d.c1.b.a').tld.should.equal('c1.b.a');
-      new Tld(simpleRule).decompose('foo.d.c1.b.a').domain.should.equal('d');
+      new Tld(simpleRule).decompose('foo.d.c1.b.a').tld
+        .should.eql(['c1', 'b', 'a']);
+      new Tld(simpleRule).decompose('foo.d.c1.b.a').domain
+        .should.equal('d');
+      new Tld(simpleRule).decompose('foo.d.c1.b.a').sub
+        .should.eql(['foo']);
 
       done();
     });
@@ -116,7 +128,8 @@ describe('Tld', function () {
         var d = new Tld(rules).decompose(input);
 
         should.equal((d === null && expected === null) ||
-          (d !== null && expected === [d.domain, d.tld].join('.')), true);
+          (d !== null &&
+            expected === [d.domain, d.tld.join('.')].join('.')), true);
       };
 
       require(__dirname + '/fixtures/PublicSuffix.org/checkPublicSuffix.js');
