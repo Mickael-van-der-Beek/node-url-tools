@@ -54,6 +54,34 @@ describe('UrlExt', function () {
     });
   });
 
+  describe('Extracting http://google.com', function () {
+    it('should extract and resp 1 redirect, no error', function (done) {
+      urlext.extract('http://google.com', function (err, res) {
+        expect(res).to.have.property('href', 'http://google.com');
+        expect(res).to.have.property('hostname', 'google.com');
+        expect(res).to.have.property('domain', 'google');
+        expect(res).to.have.property('tld').to.eql(['com']);
+        expect(res).to.have.property('subdomain').to.eql([]);
+        expect(res).to.have.property('responseTime').to.be.at.least(0);
+        expect(res).to.have.property('response')
+          .to.have.property('redirects').to.have.length(1);
+        expect(res).to.have.property('response')
+          .to.have.property('error').to.equal(null);
+        done();
+      });
+    });
+  });
+
+  describe('Extracting ftp://google.com', function () {
+    it('should error', function (done) {
+      urlext.extract('ftp://google.com', function (err, res) {
+        expect(res).to.equal(null);
+        expect(err).to.not.equal(null);
+        done();
+      });
+    });
+  });
+
   describe('Extracting www.google.com', function () {
     it('should extract and resp 0 redirect, no error', function (done) {
       urlext.extract('www.google.com', function (err, res) {

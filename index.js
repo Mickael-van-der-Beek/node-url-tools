@@ -40,6 +40,10 @@ urlext.prototype.extract = function (urlStr, callback) {
 
   // Get TLD info
   var tld = this.tld.decompose(result.hostname);
+  if (tld === null) {
+    callback(new Error('Malformed URL'), null);
+    return;
+  }
   result.domain = tld.domain;
   result.tld = tld.tld;
   result.subdomain = tld.sub;
