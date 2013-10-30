@@ -1,18 +1,20 @@
 {
-  "name": "url-toolbelt",
+  "name": "urlext",
   "version": "0.0.1",
   "description": "A set of API's to extract specific metrics, states and data about a URL.",
   "main": "index.js",
   "dependencies": {
+    "request": "2.27.0"
   },
   "devDependencies": {
     "mocha": "*",
     "chai": "*",
-    "jshint": "~2.3.0"
+    "jshint": "~2.3.0",
+    "nock": "*"
   },
   "scripts": {
     "test": "npm run lint && npm run test-node",
-    "test-node": "./node_modules/.bin/mocha --reporter spec test/",
+    "test-node": "NODE_ENV=test ./node_modules/.bin/mocha --reporter spec test/",
     "lint": "./node_modules/.bin/jshint ."
   },
   "repository": {
