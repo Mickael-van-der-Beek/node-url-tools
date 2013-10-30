@@ -30,6 +30,11 @@ describe('UrlExt', function () {
     nock('http://error.com')
       .get('/')
       .reply(404);
+
+    nock('http://loop.com')
+      .get('/')
+      .times(10)
+      .reply(302, '', {Location: 'http://loop.com'});
   });
 
   afterEach(function () {
@@ -100,6 +105,24 @@ describe('UrlExt', function () {
     });
   });
 
+  describe('Extracting cnn.com', function () {
+    it('should extract and resp 2 redirect, no error', function (done) {
+      urlext.extract('cnn.com', function (err, res) {
+        expect(res).to.have.property('href', 'http://cnn.com');
+        expect(res).to.have.property('hostname', 'cnn.com');
+        expect(res).to.have.property('domain', 'cnn');
+        expect(res).to.have.property('tld').to.eql(['com']);
+        expect(res).to.have.property('subdomain').to.eql([]);
+        expect(res).to.have.property('responseTime').to.be.at.least(0);
+        expect(res).to.have.property('response')
+          .to.have.property('redirects').to.have.length(2);
+        expect(res).to.have.property('response')
+          .to.have.property('error').to.equal(null);
+        done();
+      });
+    });
+  });
+
   describe('Extracting error.com', function () {
     it('should extract and resp 404 code, no error', function (done) {
       urlext.extract('error.com', function (err, res) {
@@ -112,6 +135,18 @@ describe('UrlExt', function () {
           .to.have.property('error').to.equal(null);
         expect(res).to.have.property('response')
           .to.have.property('code').to.equal(404);
+        done();
+      });
+    });
+  });
+
+  describe('Extracting loop.com', function () {
+    it('should extract and resp error after 8 redirects', function (done) {
+      urlext.extract('loop.com', function (err, res) {
+        console.log(res);
+        expect(res).to.have.property('responseTime').to.be.at.least(0);
+        expect(res).to.have.property('response')
+          .to.have.property('error').to.not.equal(null);
         done();
       });
     });
