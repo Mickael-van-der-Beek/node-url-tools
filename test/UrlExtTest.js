@@ -143,7 +143,6 @@ describe('UrlExt', function () {
   describe('Extracting loop.com', function () {
     it('should extract and resp error after 8 redirects', function (done) {
       urlext.extract('loop.com', function (err, res) {
-        console.log(res);
         expect(res).to.have.property('responseTime').to.be.at.least(0);
         expect(res).to.have.property('response')
           .to.have.property('error').to.not.equal(null);
