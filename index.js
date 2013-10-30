@@ -11,6 +11,12 @@ function urlext() {
   )));
 }
 
+/**
+ * Fire http request and callback when done.
+ *
+ * @param  {String}   urlStr   The url.
+ * @param  {Function} callback Callback with error, response and responstime.
+ */
 function fireRequest(urlStr, callback) {
   var start = Date.now();
 
@@ -25,6 +31,12 @@ function fireRequest(urlStr, callback) {
   });
 }
 
+/**
+ * Extract a url.
+ *
+ * @param  {String}   urlStr   Url (http/https protocol) string.
+ * @param  {Function} callback Callback function with result, error otherwise.
+ */
 urlext.prototype.extract = function (urlStr, callback) {
   var result = {
     'href': /^https?:\/\//.test(urlStr) ? urlStr : 'http://' + urlStr
