@@ -15,7 +15,7 @@ npm install urlext
 var urlext = require('urlext');
 ```
 
-Then get url metrics for `www.cnn.com` by calling:
+Then get url metrics for `www.cnn.com` by calling (the port identifier `:80` is optional, but shown here for completeness):
 
 ```node
 urlext.extract('www.cnn.com:80', function (err, res) {
@@ -60,7 +60,7 @@ Will provide following output:
 
 ### TLDs
 
-The `tld`, `domain` and `subdomain` fields int he result are extracted based on the tld list provided by [PublixSuffix.org](http://publicsuffix.org).
+The `tld`, `domain` and `subdomain` fields in the result are extracted based on the tld list provided by [PublixSuffix.org](http://publicsuffix.org).
 
 ## Test
 
