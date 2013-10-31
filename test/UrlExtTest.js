@@ -1,4 +1,3 @@
-/* jslint expr: false */
 'use strict';
 
 var urlext = require('../index.js'),
