@@ -1,6 +1,6 @@
 {
   "name": "urlext",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A set of API's to extract specific metrics, states and data about a URL.",
   "main": "index.js",
   "dependencies": {
