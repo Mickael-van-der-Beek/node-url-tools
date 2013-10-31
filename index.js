@@ -49,6 +49,8 @@ urlext.prototype.extract = function (urlStr, callback) {
     return;
   }
   result.hostname = parsed.hostname;
+  result.port = parsed.port;
+  result.pathname = parsed.pathname;
 
   // Get TLD info
   var tld = this.tld.decompose(result.hostname);
