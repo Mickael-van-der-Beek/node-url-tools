@@ -24,8 +24,8 @@ function fireRequest(urlStr, callback) {
     url: urlStr,
     method: 'GET',
     maxRedirects: 8,
-    timeout: 10 * 1000,
-    headers: { 'User-Agent': 'woobot/2.0' }
+    timeout: 10 * 1000
+    //headers: { 'User-Agent': 'woobot/2.0' }
   }, function (error, response) {
     callback(error, response, Date.now() - start);
   });
