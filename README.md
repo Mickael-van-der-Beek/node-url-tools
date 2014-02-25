@@ -1,4 +1,4 @@
-URL Toolbelt [![Build Status](https://travis-ci.org/Woorank/node-url-tools.png?branch=master)](https://travis-ci.org/Woorank/node-url-tools)
+URL Toolbelt [![Build Status](https://travis-ci.org/Woorank/node-url-tools.png?branch=master)](https://travis-ci.org/Woorank/node-url-tools) [![Coverage Status](https://coveralls.io/repos/Woorank/node-url-tools/badge.png)](https://coveralls.io/r/Woorank/node-url-tools)
 ============
 
 A set of libraries to extract specific metrics, states and data about a URL.
